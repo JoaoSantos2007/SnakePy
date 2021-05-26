@@ -136,7 +136,6 @@ while True:
         return dx, dy, lista_cobra, direcao_x, direcao_y
 
     def verifica_comida(dx,dy,x_comida,y_comida,lista_cobra,tempo):
-
         head = lista_cobra[-1]
 
         x_novo = head[0] + dx
