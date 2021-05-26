@@ -1,5 +1,6 @@
 import pygame #importa a biblioteca Pygame
 import random #importa a biblioteca Random
+from audioplayer import AudioPlayer
 
 inicio = False
 
