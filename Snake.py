@@ -18,10 +18,16 @@ def iniciar(inicio,tela,fonte,texto):
     
 while True:
     status = True
-    pygame.mixer.init()
     pygame.init()
-    pygame.mixer.music.load('supermario.mp3')
-    pygame.mixer.music.play()
+    player = AudioPlayer("supermario.mp3")
+    comer = AudioPlayer("comer.mp3")
+    erro = AudioPlayer("Erro.mp3")
+
+    player.play()
+
+    # pygame.mixer.init()
+    # pygame.mixer.music.load('supermario.mp3')
+    # pygame.mixer.music.play()
 
     # Definir cores
     cor_inicio = (64,193,255)
@@ -142,6 +148,7 @@ while True:
         y_novo = head[1] + dy
 
         if head[0] == x_comida and head[1] == y_comida:
+            comer.play()
             lista_cobra.append([x_novo, y_novo])
             tempo = tempo + 0.5
             x_comida = round(random.randrange(0, 600 -d)/20)*20
@@ -186,6 +193,7 @@ while True:
         status = verifica_mordeu_cobra(lista_cobra,status)
         pontuação = atualizar_pontos(lista_cobra)
         clock.tick(tempo)
+    erro.play()
     pygame.display.update()    
     tela.fill(cor_fim)
     fim = fonte2.render("Gamer Over: ", True, cor_pontos)
