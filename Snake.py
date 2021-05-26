@@ -1,5 +1,6 @@
 import pygame #importa a biblioteca Pygame
 import random #importa a biblioteca Random
+from audioplayer import AudioPlayer
 
 inicio = False
 
@@ -14,7 +15,7 @@ def iniciar(inicio,tela,fonte,texto):
                 inicio = True
             if event.type == pygame.QUIT:
                 raise Execption
-    return inicio
+    return inicio 
     
 while True:
     status = True
@@ -138,7 +139,6 @@ while True:
     def verifica_comida(dx,dy,x_comida,y_comida,lista_cobra,tempo):
 
         head = lista_cobra[-1]
-
         x_novo = head[0] + dx
         y_novo = head[1] + dy
 
