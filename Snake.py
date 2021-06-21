@@ -1,28 +1,31 @@
-import pygame #importa a biblioteca Pygame
-import random #importa a biblioteca Random
+import pygame  # importa a biblioteca Pygame
+import random  # importa a biblioteca Random
 from audioplayer import AudioPlayer
 
 inicio = False
 
-#Começar partida
-def iniciar(inicio,tela,fonte,texto):
-    texto = fonte.render("Pressione T para iniciar: ",True,cor_pontos)
-    tela.blit(imagem,[0,263])
-    tela.blit(texto,[150,150])
+# Começar partida
+
+
+def iniciar(inicio, tela, fonte, texto):
+    texto = fonte.render("Pressione T para iniciar: ", True, cor_pontos)
+    tela.blit(imagem, [0, 263])
+    tela.blit(texto, [150, 150])
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_t:
                 inicio = True
-            if event.type == pygame.QUIT:
-                raise Execption
+        if event.type == pygame.QUIT:
+            raise Execption
     return inicio
-    
+
+
 while True:
     status = True
     pygame.init()
-    player = AudioPlayer("supermario.mp3")
-    comer = AudioPlayer("comer.mp3")
-    erro = AudioPlayer("Erro.mp3")
+    player = AudioPlayer("jogoCobrinha/supermario.mp3")
+    comer = AudioPlayer("jogoCobrinha/comer.mp3")
+    erro = AudioPlayer("jogoCobrinha/Erro.mp3")
 
     player.play()
 
@@ -31,26 +34,26 @@ while True:
     # pygame.mixer.music.play()
 
     # Definir cores
-    cor_inicio = (64,193,255)
+    cor_inicio = (64, 193, 255)
 
-    cor_fundo = (150,255,159)#Define a cor do fundo 
+    cor_fundo = (150, 255, 159)  # Define a cor do fundo
 
-    cor_cobra = (255,0,0)#Define a cor da cobra
+    cor_cobra = (255, 0, 0)  # Define a cor da cobra
 
-    cor_comida = (138,0,0)#Define a cor da comida 128,60,60
+    cor_comida = (138, 0, 0)  # Define a cor da comida 128,60,60
 
-    cor_pontos =(0,0,0)#Define a cor dos pontos
+    cor_pontos = (0, 0, 0)  # Define a cor dos pontos
 
-    cor_inicio = (64,193,255)
+    cor_inicio = (64, 193, 255)
 
-    cor_fim = (255,255,110)
+    cor_fim = (255, 255, 110)
     #########
 
     dimensoes = (600, 600)
 
     fim = ""
 
-    #Valores Iniciais
+    # Valores Iniciais
 
     pontuação = ""
 
@@ -69,34 +72,35 @@ while True:
     dx = 0
     dy = 0
 
-    x_comida = round(random.randrange(0, 600 -d)/20)*20
-    y_comida = round(random.randrange(0, 600 -d)/20)*20
+    x_comida = round(random.randrange(0, 600 - d)/20)*20
+    y_comida = round(random.randrange(0, 600 - d)/20)*20
 
     fonte = pygame.font.SysFont("hack", 35)
-    fonte2 = pygame.font.SysFont("hack", 100)  
+    fonte2 = pygame.font.SysFont("hack", 100)
 
-    lista_cobra = [[x,y]]
+    lista_cobra = [[x, y]]
 
     tela = pygame.display.set_mode((dimensoes))
     pygame.display.set_caption("Snake")
     tela.fill(cor_inicio)
 
-    imagem = pygame.image.load("cobrinha.png")
+    imagem = pygame.image.load("jogoCobrinha/cobrinha.png")
     estatico = imagem.get_rect()
 
     clock = pygame.time.Clock()
     if inicio == False:
         while inicio == False:
             pygame.display.update()
-            inicio = iniciar(inicio,tela,fonte,texto)
-   
+            inicio = iniciar(inicio, tela, fonte, texto)
+
     def desenha_cobra(lista_cobra):
         tela.fill(cor_fundo)
         for unidade in lista_cobra:
-            pygame.draw.rect(tela, cor_cobra, [unidade[0],unidade[1],d,d])
+            pygame.draw.rect(tela, cor_cobra, [unidade[0], unidade[1], d, d])
 
     tela.fill(cor_fundo)
-    def mover_cobra(dx, dy, lista_cobra,direcao_x,direcao_y):
+
+    def mover_cobra(dx, dy, lista_cobra, direcao_x, direcao_y):
         delta_x = 0
         delta_y = 0
 
@@ -128,7 +132,7 @@ while True:
                         direcao_x = "Liberado"
                 if event.key == pygame.K_ESCAPE:
                     raise Exception
-                
+
         x_novo = lista_cobra[-1][0] + dx
         y_novo = lista_cobra[-1][1] + dy
 
@@ -139,10 +143,9 @@ while True:
         # x = x + delta_x
         # y = y + delta_y
 
-
         return dx, dy, lista_cobra, direcao_x, direcao_y
 
-    def verifica_comida(dx,dy,x_comida,y_comida,lista_cobra,tempo):
+    def verifica_comida(dx, dy, x_comida, y_comida, lista_cobra, tempo):
         head = lista_cobra[-1]
 
         x_novo = head[0] + dx
@@ -152,14 +155,14 @@ while True:
             comer.play()
             lista_cobra.append([x_novo, y_novo])
             tempo = tempo + 0.5
-            x_comida = round(random.randrange(0, 600 -d)/20)*20
-            y_comida = round(random.randrange(0, 600 -d)/20)*20
+            x_comida = round(random.randrange(0, 600 - d)/20)*20
+            y_comida = round(random.randrange(0, 600 - d)/20)*20
 
         pygame.draw.rect(tela, cor_comida, [x_comida, y_comida, d, d])
 
         return x_comida, y_comida, lista_cobra, tempo
 
-    def verifica_parede(lista_cobra,status):
+    def verifica_parede(lista_cobra, status):
         head = lista_cobra[-1]
         x = head[0]
         y = head[1]
@@ -168,7 +171,7 @@ while True:
             status = False
         return status
 
-    def verifica_mordeu_cobra(lista_cobra,status):
+    def verifica_mordeu_cobra(lista_cobra, status):
         head = lista_cobra[-1]
         corpo = lista_cobra.copy()
 
@@ -187,19 +190,21 @@ while True:
     while status == True:
         pygame.display.update()
         desenha_cobra(lista_cobra)
-        dx, dy, lista_cobra, direcao_x, direcao_y = mover_cobra(dx, dy, lista_cobra,direcao_x,direcao_y)
-        x_comida, y_comida, lista_cobra, tempo = verifica_comida(dx,dy,x_comida,y_comida,lista_cobra,tempo)
+        dx, dy, lista_cobra, direcao_x, direcao_y = mover_cobra(
+            dx, dy, lista_cobra, direcao_x, direcao_y)
+        x_comida, y_comida, lista_cobra, tempo = verifica_comida(
+            dx, dy, x_comida, y_comida, lista_cobra, tempo)
         # print(lista_cobra)
-        status = verifica_parede(lista_cobra,status)
-        status = verifica_mordeu_cobra(lista_cobra,status)
+        status = verifica_parede(lista_cobra, status)
+        status = verifica_mordeu_cobra(lista_cobra, status)
         pontuação = atualizar_pontos(lista_cobra)
         clock.tick(tempo)
     erro.play()
-    pygame.display.update()    
+    pygame.display.update()
     tela.fill(cor_fim)
     fim = fonte2.render("Gamer Over: ", True, cor_pontos)
-    tela.blit(fim,[100,50])
-    pontuação = fonte2.render("Pontos: " + pontuação , True, cor_pontos)
-    tela.blit(pontuação,[100,200])
+    tela.blit(fim, [100, 50])
+    pontuação = fonte2.render("Pontos: " + pontuação, True, cor_pontos)
+    tela.blit(pontuação, [100, 200])
     pygame.display.update()
-    clock.tick(0.3)   
+    clock.tick(0.3)
