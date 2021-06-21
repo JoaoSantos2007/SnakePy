@@ -23,9 +23,9 @@ def iniciar(inicio, tela, fonte, texto):
 while True:
     status = True
     pygame.init()
-    player = AudioPlayer("jogoCobrinha/supermario.mp3")
-    comer = AudioPlayer("jogoCobrinha/comer.mp3")
-    erro = AudioPlayer("jogoCobrinha/Erro.mp3")
+    player = AudioPlayer("supermario.mp3")
+    comer = AudioPlayer("comer.mp3")
+    erro = AudioPlayer("Erro.mp3")
 
     player.play()
 
@@ -84,7 +84,7 @@ while True:
     pygame.display.set_caption("Snake")
     tela.fill(cor_inicio)
 
-    imagem = pygame.image.load("jogoCobrinha/cobrinha.png")
+    imagem = pygame.image.load("cobrinha.png")
     estatico = imagem.get_rect()
 
     clock = pygame.time.Clock()
