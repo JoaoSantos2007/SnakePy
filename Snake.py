@@ -3,10 +3,9 @@ import random  # importa a biblioteca Random
 from audioplayer import AudioPlayer
 
 inicio = False
+source = "/home/joao/Arquivos/jogoCobrinha/"
 
 # Começar partida
-
-
 def iniciar(inicio, tela, fonte, texto):
     texto = fonte.render("Pressione T para iniciar: ", True, cor_pontos)
     tela.blit(imagem, [0, 263])
@@ -23,9 +22,9 @@ def iniciar(inicio, tela, fonte, texto):
 while True:
     status = True
     pygame.init()
-    player = AudioPlayer("supermario.mp3")
-    comer = AudioPlayer("comer.mp3")
-    erro = AudioPlayer("Erro.mp3")
+    player = AudioPlayer(source+"supermario.mp3")
+    comer = AudioPlayer(source+"comer.mp3")
+    erro = AudioPlayer(source+"Erro.mp3")
 
     player.play()
 
@@ -84,7 +83,7 @@ while True:
     pygame.display.set_caption("Snake")
     tela.fill(cor_inicio)
 
-    imagem = pygame.image.load("cobrinha.png")
+    imagem = pygame.image.load(source+"cobrinha.png")
     estatico = imagem.get_rect()
 
     clock = pygame.time.Clock()
