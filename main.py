@@ -1,9 +1,11 @@
 import pygame  # importa a biblioteca Pygame
 import random  # importa a biblioteca Random
+import os
 from audioplayer import AudioPlayer
 
 inicio = False
-source = "/home/joao/Arquivos/jogoCobrinha/"
+absolutePath = os.path.dirname(__file__)
+assetsPath = absolutePath + "/assets"
 
 # Começar partida
 def iniciar(inicio, tela, fonte, texto):
@@ -15,50 +17,35 @@ def iniciar(inicio, tela, fonte, texto):
             if event.key == pygame.K_t:
                 inicio = True
         if event.type == pygame.QUIT:
-            raise Execption
+            raise Exception
     return inicio
 
 
 while True:
     status = True
     pygame.init()
-    player = AudioPlayer(source+"supermario.mp3")
-    comer = AudioPlayer(source+"comer.mp3")
-    erro = AudioPlayer(source+"Erro.mp3")
+    player = AudioPlayer(assetsPath + "/music.mp3")
+    comer = AudioPlayer(assetsPath + "/eat.mp3")
+    erro = AudioPlayer(assetsPath + "/error.mp3")
 
     player.play()
 
-    # pygame.mixer.init()
-    # pygame.mixer.music.load('supermario.mp3')
-    # pygame.mixer.music.play()
-
     # Definir cores
     cor_inicio = (64, 193, 255)
-
-    cor_fundo = (150, 255, 159)  # Define a cor do fundo
-
-    cor_cobra = (255, 0, 0)  # Define a cor da cobra
-
-    cor_comida = (138, 0, 0)  # Define a cor da comida 128,60,60
-
-    cor_pontos = (0, 0, 0)  # Define a cor dos pontos
-
+    cor_fundo = (150, 255, 159)
+    cor_cobra = (255, 0, 0)
+    cor_comida = (138, 0, 0)
+    cor_pontos = (0, 0, 0)
     cor_inicio = (64, 193, 255)
-
     cor_fim = (255, 255, 110)
-    #########
 
     dimensoes = (600, 600)
-
     fim = ""
 
     # Valores Iniciais
-
     pontuação = ""
-
     texto = ""
-
-    tempo = 9.0
+    tempo = 11
 
     direcao_x = "Liberado"
     direcao_y = "Liberado"
@@ -83,7 +70,7 @@ while True:
     pygame.display.set_caption("Snake")
     tela.fill(cor_inicio)
 
-    imagem = pygame.image.load(source+"cobrinha.png")
+    imagem = pygame.image.load(assetsPath + "/snake.png")
     estatico = imagem.get_rect()
 
     clock = pygame.time.Clock()
@@ -100,9 +87,6 @@ while True:
     tela.fill(cor_fundo)
 
     def mover_cobra(dx, dy, lista_cobra, direcao_x, direcao_y):
-        delta_x = 0
-        delta_y = 0
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 raise Exception
@@ -138,9 +122,6 @@ while True:
         lista_cobra.append([x_novo, y_novo])
 
         del lista_cobra[0]
-
-        # x = x + delta_x
-        # y = y + delta_y
 
         return dx, dy, lista_cobra, direcao_x, direcao_y
 
@@ -193,7 +174,6 @@ while True:
             dx, dy, lista_cobra, direcao_x, direcao_y)
         x_comida, y_comida, lista_cobra, tempo = verifica_comida(
             dx, dy, x_comida, y_comida, lista_cobra, tempo)
-        # print(lista_cobra)
         status = verifica_parede(lista_cobra, status)
         status = verifica_mordeu_cobra(lista_cobra, status)
         pontuação = atualizar_pontos(lista_cobra)
