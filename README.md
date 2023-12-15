@@ -9,7 +9,7 @@ SnakePy é um jogo da cobrinha simples criado em Python com o Pygame.
 - Evite colidir com as bordas da janela ou com o próprio corpo da cobra.
 
 ## Instalação
-Certifique-se de ter o Python, Pygame e o AudioPlayer instalados. Para instalar as dependências execute o comando abaixo:
+Certifique-se de ter o Python, Pip, Pygame e o AudioPlayer instalados. Para instalar as dependências execute o comando abaixo:
 ```bash
 pip install pygame audioplayer PyGObject
 ```
